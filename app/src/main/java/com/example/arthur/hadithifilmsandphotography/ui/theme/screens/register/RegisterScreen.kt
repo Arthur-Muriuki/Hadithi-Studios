@@ -30,10 +30,10 @@ import com.example.arthur.hadithifilmsandphotography.R
 import com.example.arthur.hadithifilmsandphotography.data.AuthViewModel
 import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_LOGIN
 
+
 @Composable
 fun RegisterScreen(navController: NavHostController) {
     Box(modifier = Modifier.fillMaxSize()) {
-        // 🔥 Background image with cool vibes
         Image(
             painter = painterResource(id = R.drawable.img),
             contentDescription = null,
@@ -54,6 +54,7 @@ fun RegisterScreen(navController: NavHostController) {
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Cursive
             )
+
             Spacer(modifier = Modifier.height(30.dp))
 
             var name by remember { mutableStateOf("") }
@@ -110,6 +111,16 @@ fun RegisterScreen(navController: NavHostController) {
                 shape = RoundedCornerShape(5.dp)
             )
 
+            Text(
+                text = "Password must be at least 6 characters.",
+                color = if (password.length in 1..5) Color.Red else Color.Gray,
+                fontSize = 12.sp,
+                fontFamily = FontFamily.SansSerif,
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(start = 24.dp, top = 4.dp)
+            )
+
             Spacer(modifier = Modifier.height(10.dp))
 
             OutlinedTextField(
@@ -135,11 +146,23 @@ fun RegisterScreen(navController: NavHostController) {
 
             val context = LocalContext.current
             val authViewModel = AuthViewModel(navController, context)
+
+            // Dynamically change button color based on password length
+            val buttonColor = if (password.length >= 6) Color.Blue else Color.Gray
+
             Button(
                 onClick = {
-                    authViewModel.signup(name, email, password, confpassword)
+                    if (password.length < 6) {
+                        Toast.makeText(context, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                    } else if (password != confpassword) {
+                        Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                    } else {
+                        authViewModel.signup(name, email, password, confpassword)
+                        Toast.makeText(context, "Registration Successful", Toast.LENGTH_SHORT).show()
+                        navController.navigate(ROUT_LOGIN)
+                    }
                 },
-                colors = ButtonDefaults.buttonColors(Color.DarkGray),
+                colors = ButtonDefaults.buttonColors(buttonColor),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
@@ -163,10 +186,4 @@ fun RegisterScreen(navController: NavHostController) {
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RegisterScreenPreview() {
-    RegisterScreen(navController = rememberNavController())
 }

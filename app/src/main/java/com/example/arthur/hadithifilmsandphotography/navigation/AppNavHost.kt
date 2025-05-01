@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings.AddBookingScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings.BookingListScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings.EditBookingScreen
+import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.gallery.GalleryScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.home.HomeScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.login.LoginScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.register.RegisterScreen
@@ -33,6 +34,9 @@ fun AppNavHost(
     {
         composable(ROUT_SPLASH) {
             SplashScreen(navController)
+        }
+        composable(ROUT_GALLERY) {
+            GalleryScreen(navController)
         }
         composable(ROUT_LOGIN) {
             LoginScreen(navController)

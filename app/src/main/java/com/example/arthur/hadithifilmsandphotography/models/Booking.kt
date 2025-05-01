@@ -1,33 +1,16 @@
 package com.example.arthur.hadithifilmsandphotography.models
 
-class Booking {
-    var name: String = ""
-    var contact: String = ""
-    var email:String = ""
-    var category: String = ""
-    var location: String = ""
-    var id: String = ""
-    var userId: String = ""
-
-    // Primary constructor with all properties
-    constructor(
-        name: String,
-        contact: String,
-        email: String,
-        category: String,
-        location: String,
-        id: String,
-        userId: String
-    ) {
-        this.name = name
-        this.contact = contact
-        this.email = email
-        this.category = category
-        this.location = location
-        this.id = id
-        this.userId = userId
-    }
-
+// Primary constructor with default values
+data class Booking(
+    val name: String = "",
+    val contact: String = "",
+    val category: String = "",
+    val location: String = "",
+    val date: String = "",
+    val time: String = "",
+    val id: String = "",
+    val userId: String = ""
+) {
     // Secondary constructor with no parameters
-    constructor()
+    constructor() : this("", "", "", "", "", "", "", "")
 }

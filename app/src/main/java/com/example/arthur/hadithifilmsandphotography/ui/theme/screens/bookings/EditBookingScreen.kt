@@ -13,109 +13,140 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.arthur.hadithifilmsandphotography.data.BookingViewModel
-import com.example.arthur.hadithifilmsandphotography.models.Booking
 import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_VIEW_BOOKING
-import kotlin.let
 
 @Composable
-    fun EditBookingScreen(navController: NavHostController, bookingId: String) {
+fun EditBookingScreen(navController: NavHostController, bookingId: String) {
     val context = LocalContext.current
-    val propertyViewModel = remember { BookingViewModel(navController, context) }
+    val bookingViewModel = remember { BookingViewModel(navController, context) }
 
     // State variables to hold form values
     var name by remember { mutableStateOf("") }
     var contact by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
     var category by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
+    var date by remember { mutableStateOf("") }
+    var time by remember { mutableStateOf("") }
 
     var isDataLoaded by remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(true) }
+    var errorMessage by remember { mutableStateOf("") }
 
-    // Load property data ONCE
+    // Load booking data once
     LaunchedEffect(bookingId) {
-        if (!isDataLoaded) {
-            propertyViewModel.getBookingById(bookingId) { property ->
-                property?.let {
-                    name = it.name
-                    contact = it.contact
-                    email = it.email
-                    category = it.category
-                    location = it.location
-                    isDataLoaded = true
-                } ?: Toast.makeText(context, "Failed to load booking", Toast.LENGTH_SHORT).show()
+        bookingViewModel.getBookingById(bookingId) { booking ->
+            if (booking != null) {
+                name = booking.name
+                contact = booking.contact
+                category = booking.category
+                location = booking.location
+                date = booking.date
+                time = booking.time
+                isDataLoaded = true
+            } else {
+                errorMessage = "Failed to load booking"
             }
+            isLoading = false
         }
     }
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(text = "Edit Booking", fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Name") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        // Show error message if loading fails
+        if (errorMessage.isNotEmpty()) {
+            Text(text = errorMessage, color = MaterialTheme.colorScheme.error)
+            Spacer(modifier = Modifier.height(8.dp))
+        }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        if (isLoading) {
+            CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+        } else {
+            // Editable fields
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = { Text("Name") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        OutlinedTextField(
-            value = contact,
-            onValueChange = { contact = it },
-            label = { Text("Contact") },
-            modifier = Modifier.fillMaxWidth()
-        )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = contact,
+                onValueChange = { contact = it },
+                label = { Text("Contact") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = category,
+                onValueChange = { category = it },
+                label = { Text("Category") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        OutlinedTextField(
-            value = category,
-            onValueChange = { category = it },
-            label = { Text("Category") },
-            modifier = Modifier.fillMaxWidth()
-        )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Spacer(modifier = Modifier.height(8.dp))
+            OutlinedTextField(
+                value = location,
+                onValueChange = { location = it },
+                label = { Text("Location") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        OutlinedTextField(
-            value = location,
-            onValueChange = { location = it },
-            label = { Text("Location") },
-            modifier = Modifier.fillMaxWidth()
-        )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Spacer(modifier = Modifier.height(16.dp))
+            // New date field
+            OutlinedTextField(
+                value = date,
+                onValueChange = { date = it },
+                label = { Text("Date") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        Button(
-            onClick = {
-                propertyViewModel.updateBooking(bookingId, name, contact, email, category, location)
-                navController.navigate(ROUT_VIEW_BOOKING)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Text("Update Booking")
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // New time field
+            OutlinedTextField(
+                value = time,
+                onValueChange = { time = it },
+                label = { Text("Time") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Update Button
+            Button(
+                onClick = {
+                    if (name.isNotEmpty() && contact.isNotEmpty() && category.isNotEmpty() && location.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
+                        bookingViewModel.updateBooking(bookingId, name, contact, category, location, date, time)
+                        Toast.makeText(context, "Booking updated successfully", Toast.LENGTH_SHORT).show()
+                        navController.navigate(ROUT_VIEW_BOOKING)
+                    } else {
+                        Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp),
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Text("Update Booking")
+            }
         }
     }
 }

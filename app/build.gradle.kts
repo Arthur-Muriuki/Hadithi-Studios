@@ -63,4 +63,9 @@ dependencies {
     implementation("androidx.navigation:navigation-runtime-ktx:2.9.0-rc01")
     implementation("androidx.navigation:navigation-compose-android:2.9.0-rc01")
     implementation("com.google.firebase:firebase-database-ktx:20.3.0")
+    //gallery
+
+    implementation ("com.google.accompanist:accompanist-pager:0.32.0")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.32.0")
+
 }

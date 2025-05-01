@@ -6,8 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,8 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,7 +35,7 @@ import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_REGISTER
 fun LoginScreen(navController: NavHostController) {
     Box(modifier = Modifier.fillMaxSize()) {
 
-        // 🔥 Background image, but on chill mode
+        // Background image with low opacity
         Image(
             painter = painterResource(id = R.drawable.img),
             contentDescription = null,
@@ -48,8 +46,7 @@ fun LoginScreen(navController: NavHostController) {
         )
 
         Column(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -66,6 +63,7 @@ fun LoginScreen(navController: NavHostController) {
 
             var email by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
+            var passwordVisible by remember { mutableStateOf(false) }
 
             OutlinedTextField(
                 value = email,
@@ -73,11 +71,11 @@ fun LoginScreen(navController: NavHostController) {
                 label = { Text("Email Address", fontFamily = FontFamily.SansSerif) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 leadingIcon = {
-                    Icon(imageVector = Icons.Default.Email, contentDescription = null)
+                    Icon(imageVector = Icons.Default.Email, contentDescription = "Email")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp),
+                    .padding(horizontal = 20.dp),
                 shape = RoundedCornerShape(5.dp)
             )
 
@@ -89,34 +87,47 @@ fun LoginScreen(navController: NavHostController) {
                 label = { Text("Password", fontFamily = FontFamily.SansSerif) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 leadingIcon = {
-                    Icon(imageVector = Icons.Default.Lock, contentDescription = null)
+                    Icon(imageVector = Icons.Default.Lock, contentDescription = "Password")
                 },
+                trailingIcon = {
+                    val image = if (passwordVisible)
+                        Icons.Filled.Visibility
+                    else
+                        Icons.Filled.VisibilityOff
+
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(imageVector = image, contentDescription = if (passwordVisible) "Hide password" else "Show password")
+                    }
+                },
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp),
-                shape = RoundedCornerShape(5.dp),
-                visualTransformation = PasswordVisualTransformation()
+                    .padding(horizontal = 20.dp),
+                shape = RoundedCornerShape(5.dp)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
             val context = LocalContext.current
-            val authViewModel = AuthViewModel(navController, context)
+            val authViewModel = remember { AuthViewModel(navController, context) }
+
+            val isPasswordValid = password.length >= 6
+            val loginButtonColor = if (isPasswordValid) Color(0xFF3F51B5) else Color.Gray
 
             Button(
                 onClick = { authViewModel.login(email, password) },
-                colors = ButtonDefaults.buttonColors(Color.DarkGray),
+                colors = ButtonDefaults.buttonColors(containerColor = loginButtonColor),
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp)
+                    .padding(horizontal = 20.dp),
+                enabled = isPasswordValid
             ) {
                 Text("Login", fontFamily = FontFamily.SansSerif)
             }
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Changed from button to link-style text
             TextButton(onClick = { navController.navigate(ROUT_REGISTER) }) {
                 Text(
                     text = "Don't have an account? Register",
@@ -128,8 +139,8 @@ fun LoginScreen(navController: NavHostController) {
     }
 }
 
-@Composable
 @Preview(showBackground = true)
+@Composable
 fun LoginScreenPreview() {
     LoginScreen(navController = rememberNavController())
 }

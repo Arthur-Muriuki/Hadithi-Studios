@@ -1,5 +1,6 @@
 package com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,7 +26,9 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun BookingListScreen(navController: NavHostController) {
     val context = LocalContext.current
-    val propertyViewModel = remember { BookingViewModel(navController, context) }
+
+    // Remember the BookingViewModel and pass the required parameters
+    val bookingViewModel = remember { BookingViewModel(navController, context) }
 
     val selectedBooking = remember { mutableStateOf(Booking("", "", "", "", "", "", "")) }
     val bookingList = remember { mutableStateListOf<Booking>() }
@@ -33,7 +36,10 @@ fun BookingListScreen(navController: NavHostController) {
     val currentUser = FirebaseAuth.getInstance().currentUser
     val currentUserId = currentUser?.uid
 
-    propertyViewModel.allBookings(selectedBooking, bookingList)
+    // Fetch the bookings when the screen is composed
+    LaunchedEffect(Unit) {
+        bookingViewModel.allBookings(selectedBooking, bookingList)
+    }
 
     Column(
         modifier = Modifier
@@ -45,12 +51,14 @@ fun BookingListScreen(navController: NavHostController) {
     ) {
         Spacer(modifier = Modifier.height(40.dp))
 
+        // Button to navigate to Add Booking screen
         TextButton(onClick = { navController.navigate(ROUT_ADD_BOOKING) }) {
             Text(text = "Add Booking")
         }
 
         Spacer(modifier = Modifier.height(10.dp))
 
+        // Title of the screen
         Text(
             text = "Booking Listings",
             fontWeight = FontWeight.Bold,
@@ -60,16 +68,21 @@ fun BookingListScreen(navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
+        // List of bookings
         LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             items(bookingList) { booking ->
+                // Only show bookings for the current user
                 if (booking.userId == currentUserId) {
                     BookingItem(
                         booking = booking,
                         onUpdate = {
+                            // Navigate to Edit Booking screen
                             navController.navigate("edit_booking_screen/${booking.id}")
                         },
                         onDelete = {
-                            propertyViewModel.deleteBooking(booking.id)
+                            // Delete the booking
+                            bookingViewModel.deleteBooking(booking.id)
+                            Toast.makeText(context, "Booking deleted", Toast.LENGTH_SHORT).show()
                         }
                     )
                 }
@@ -93,9 +106,10 @@ fun BookingItem(
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "Name: ${booking.name}", fontWeight = FontWeight.Bold, fontSize = 18.sp)
             Text(text = "Contact: ${booking.contact}", fontSize = 14.sp)
-            Text(text = "Email: ${booking.email}", fontSize = 14.sp)
             Text(text = "Category: ${booking.category}", fontSize = 14.sp)
             Text(text = "Location: ${booking.location}", fontSize = 14.sp)
+            Text(text = "Date: ${booking.date}", fontSize = 14.sp)
+            Text(text = "Time: ${booking.time}", fontSize = 14.sp)
 
             Spacer(modifier = Modifier.height(10.dp))
 
