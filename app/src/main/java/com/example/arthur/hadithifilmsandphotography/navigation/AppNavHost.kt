@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.admin.AdminScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings.AddBookingScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings.BookingListScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings.EditBookingScreen
@@ -15,8 +16,8 @@ import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.gallery.Ga
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.home.HomeScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.login.LoginScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.register.RegisterScreen
-import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.userdashboard.UserDashboard
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.splash.SplashScreen
+import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.userdashboard.DashboardScreen
 
 
 @Composable
@@ -32,8 +33,15 @@ fun AppNavHost(
         modifier = modifier
     )
     {
+        composable(ROUT_ADMIN) {
+            AdminScreen(navController)
+        }
         composable(ROUT_SPLASH) {
             SplashScreen(navController)
+        }
+
+        composable(ROUT_DASHBOARD){
+            DashboardScreen(navController)
         }
         composable(ROUT_GALLERY) {
             GalleryScreen(navController)

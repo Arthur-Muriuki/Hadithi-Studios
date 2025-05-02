@@ -53,7 +53,7 @@ fun SplashScreen(navController: NavHostController) {
         // After the delay, you can add any other logic you want
         // For example, you could manually update a variable to show the next screen
         // Navigate to login and remove splash from back stack
-        navController.navigate("login") {
+        navController.navigate("userdashboard") {
             popUpTo("splash") { inclusive = true }}
     }
 

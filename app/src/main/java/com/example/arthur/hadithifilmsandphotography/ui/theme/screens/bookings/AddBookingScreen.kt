@@ -23,7 +23,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.arthur.hadithifilmsandphotography.data.BookingViewModel
-import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_GALLERY
 import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_VIEW_BOOKING
 
 @Composable
@@ -41,26 +40,12 @@ fun AddBookingScreen(navController: NavHostController) {
     var isLoading by remember { mutableStateOf(false) } // To show loading indicator
 
     val categoryOptions = listOf(
-        "💍 Wedding",
-        "🏢 Corporate",
-        "🤰 Baby Bump",
-        "📸 Personal Shoot",
-        "🎂 Birthday Shoot",
-        "🎓 Graduation",
-        "🛂 Passport"
+        "💍 Wedding", "🏢 Corporate", "🤰 Baby Bump", "📸 Personal Shoot", "🎂 Birthday Shoot", "🎓 Graduation", "🛂 Passport"
     )
 
     // Dialog state
     var showDialog by remember { mutableStateOf(false) }
 
-    // Rotating Camera Animation
-    val rotation by animateFloatAsState(
-        targetValue = if (isLoading) 360f else 0f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        )
-    )
 
     Column(
         modifier = Modifier
@@ -69,12 +54,6 @@ fun AddBookingScreen(navController: NavHostController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TextButton(
-            onClick = { navController.navigate(ROUT_GALLERY) }
-        ) {
-            Text(text = "Check out our gallery")
-        }
-
         Text(
             text = "Add New Booking",
             fontWeight = FontWeight.Bold,
@@ -147,17 +126,6 @@ fun AddBookingScreen(navController: NavHostController) {
             Text(text = errorMessage, color = Color.Red)
         }
 
-        // Show loading spinner or rotating camera while loading
-        if (isLoading) {
-            Icon(
-                imageVector = Icons.Default.Camera, // Use any camera icon you like
-                contentDescription = "Rotating Camera",
-                modifier = Modifier
-                    .rotate(rotation)
-                    .size(64.dp)
-                    .padding(16.dp)
-            )
-        }
 
         Spacer(modifier = Modifier.height(16.dp))
 

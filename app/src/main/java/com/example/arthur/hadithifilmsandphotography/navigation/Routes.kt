@@ -6,6 +6,8 @@ const val ROUT_REGISTER = "register"
 const val ROUT_HOME = "home"
 const val ROUT_SPLASH = "splash"
 const val ROUT_GALLERY ="gallery"
+const val ROUT_DASHBOARD = "userdashboard"
+const val ROUT_ADMIN = "admin"
 
 const val ROUT_ADD_BOOKING="bookings"
 const val ROUT_VIEW_BOOKING="view_booking"
