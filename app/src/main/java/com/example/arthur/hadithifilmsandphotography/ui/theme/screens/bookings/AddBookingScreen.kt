@@ -23,7 +23,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.arthur.hadithifilmsandphotography.data.BookingViewModel
+import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_LOGIN
 import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_VIEW_BOOKING
+import com.example.arthur.hadithifilmsandphotography.data.AuthViewModel
 
 @Composable
 fun AddBookingScreen(navController: NavHostController) {
@@ -174,6 +176,8 @@ fun AddBookingScreen(navController: NavHostController) {
         ) {
             Text(text = "View My Bookings")
         }
+   
+
     }
 
     // Dialog to choose category

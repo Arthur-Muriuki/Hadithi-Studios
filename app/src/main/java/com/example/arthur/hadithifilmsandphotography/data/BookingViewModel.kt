@@ -23,18 +23,7 @@ class BookingViewModel(
         }
     }
 
-    // List of categories for the dropdown menu
-    val categoryList = listOf(
-        "Weddings 👰",
-        "Corporate 👔",
-        "Baby Bumps 🤰",
-        "Personal Shoots 📸",
-        "Birthday Shoots 🎂",
-        "Graduation 🎓",
-        "Passports 📷"
-    )
-
-    // Book a session
+    // Book a session (no collision checks)
     fun createBooking(
         name: String, contact: String, category: String, location: String,
         date: String, time: String, onLoading: (Boolean) -> Unit
@@ -43,77 +32,27 @@ class BookingViewModel(
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid ?: ""
 
-        // Check if the selected date is already booked for wedding or corporate categories
-        if (category.equals("Weddings 👰", true) || category.equals("Corporate 👔", true)) {
-            onLoading(true) // Show loading indicator
+        onLoading(true)
 
-            databaseReference.orderByChild("date").equalTo(date).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    var collisionFound = false
-                    for (snap in snapshot.children) {
-                        val existingBooking = snap.getValue(Booking::class.java)
-                        // Check if any existing booking has the same date and category (wedding or corporate)
-                        if (existingBooking != null && (existingBooking.category.equals("Weddings 👰", true) || existingBooking.category.equals("Corporate 👔", true))) {
-                            collisionFound = true
-                            break
-                        }
-                    }
+        val booking = Booking(
+            name = name,
+            contact = contact,
+            category = category,
+            location = location,
+            date = date,
+            time = time,
+            id = bookingId,
+            userId = userId
+        )
 
-                    onLoading(false) // Hide loading indicator
-
-                    if (collisionFound) {
-                        // If there's already a booking for the same date and category
-                        Toast.makeText(context, "This date is already booked for a wedding or corporate session", Toast.LENGTH_SHORT).show()
-                    } else {
-                        // No collision found, create a new booking
-                        val booking = Booking(
-                            name = name,
-                            contact = contact,
-                            category = category,
-                            location = location,
-                            date = date,
-                            time = time,
-                            id = bookingId,
-                            userId = userId
-                        )
-
-                        databaseReference.child(bookingId).setValue(booking).addOnCompleteListener {
-                            val message = if (it.isSuccessful) {
-                                "Booking successfully added"
-                            } else {
-                                "Error booking session"
-                            }
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    onLoading(false) // Hide loading indicator on error
-                    Toast.makeText(context, "Database error", Toast.LENGTH_SHORT).show()
-                }
-            })
-        } else {
-            // For other categories (non-wedding/corporate), no collision check needed
-            val booking = Booking(
-                name = name,
-                contact = contact,
-                category = category,
-                location = location,
-                date = date,
-                time = time,
-                id = bookingId,
-                userId = userId
-            )
-
-            databaseReference.child(bookingId).setValue(booking).addOnCompleteListener {
-                val message = if (it.isSuccessful) {
-                    "Booking successfully added"
-                } else {
-                    "Error booking session"
-                }
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        databaseReference.child(bookingId).setValue(booking).addOnCompleteListener {
+            onLoading(false)
+            val message = if (it.isSuccessful) {
+                "Booking successfully added"
+            } else {
+                "Error booking session"
             }
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -136,13 +75,11 @@ class BookingViewModel(
                 bookingList.clear()
                 for (snap in snapshot.children) {
                     val retrievedBooking = snap.getValue(Booking::class.java)
-                    // Only add the booking if the userId matches the current user's ID
                     if (retrievedBooking != null && retrievedBooking.userId == userId) {
                         bookingList.add(retrievedBooking)
                     }
                 }
 
-                // Optionally set the selected booking to the first one
                 if (bookingList.isNotEmpty()) {
                     selectedBooking.value = bookingList.first()
                 }

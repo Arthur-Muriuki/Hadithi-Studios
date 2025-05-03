@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +33,8 @@ fun GalleryScreen(navController: NavHostController) {
     val imageList = listOf(
         Pair(painterResource(id = R.drawable.wedding), "Wedding Moments"),
         Pair(painterResource(id = R.drawable.personalshoots), "Personal Shoots"),
-        Pair(painterResource(id = R.drawable.graduation), "Graduation Day")
+        Pair(painterResource(id = R.drawable.graduation), "Graduation Day"),
+        Pair(painterResource(id = R.drawable.babybump), "Baby Bump")
     )
 
     Column(

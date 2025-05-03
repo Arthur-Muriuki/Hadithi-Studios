@@ -5,11 +5,11 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import com.example.arthur.hadithifilmsandphotography.models.User
 import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_ADD_BOOKING
-import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_HOME
 import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_LOGIN
 import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_REGISTER
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+
 
 class AuthViewModel(var navController: NavController, var context: Context) {
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -61,7 +61,9 @@ class AuthViewModel(var navController: NavController, var context: Context) {
 
     fun logout() {
         mAuth.signOut()
-        navController.navigate(ROUT_HOME)
+        navController.navigate(ROUT_LOGIN) {
+            popUpTo(0) { inclusive = true }
+        }
     }
 
     fun isLoggedIn(): Boolean = mAuth.currentUser != null
