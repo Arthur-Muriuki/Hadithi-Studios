@@ -16,7 +16,6 @@ import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings.B
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings.EditBookingScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.codeverification.CodeVerification
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.gallery.GalleryScreen
-import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.home.HomeScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.login.LoginScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.register.RegisterScreen
 import com.example.arthur.hadithifilmsandphotography.ui.theme.screens.splash.SplashScreen
@@ -57,9 +56,7 @@ fun AppNavHost(
         composable(ROUT_REGISTER) {
             RegisterScreen(navController)
         }
-        composable(ROUT_HOME) {
-            HomeScreen(navController)
-        }
+
         composable(ROUT_ADD_BOOKING) {
             AddBookingScreen(navController = navController)
         }
