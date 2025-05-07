@@ -19,7 +19,7 @@ fun CustomerBookings(navController: NavHostController, viewModel: BookingViewMod
     val allBookings = remember { mutableStateListOf<Booking>() }
     var isLoading by remember { mutableStateOf(true) }
 
-    // Fetch all bookings when screen loads
+    // Fetch  bookings when screen loads
     LaunchedEffect(Unit) {
         viewModel.fetchAllBookings(allBookings)
         isLoading = false
