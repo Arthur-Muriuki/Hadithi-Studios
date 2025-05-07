@@ -1,7 +1,6 @@
 package com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings
 
 import android.widget.Toast
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,13 +16,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Camera
-import androidx.compose.ui.draw.rotate
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.arthur.hadithifilmsandphotography.data.BookingViewModel
-import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_LOGIN
 import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_VIEW_BOOKING
 import com.example.arthur.hadithifilmsandphotography.data.AuthViewModel
 
@@ -38,16 +36,13 @@ fun AddBookingScreen(navController: NavHostController) {
     var location by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
     var time by remember { mutableStateOf("") }
-    var errorMessage by remember { mutableStateOf("") }
-    var isLoading by remember { mutableStateOf(false) } // To show loading indicator
+    var isLoading by remember { mutableStateOf(false) }
 
     val categoryOptions = listOf(
         "💍 Wedding", "🏢 Corporate", "🤰 Baby Bump", "📸 Personal Shoot", "🎂 Birthday Shoot", "🎓 Graduation", "🛂 Passport"
     )
 
-    // Dialog state
     var showDialog by remember { mutableStateOf(false) }
-
 
     Column(
         modifier = Modifier
@@ -82,7 +77,6 @@ fun AddBookingScreen(navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Category input and Dialog to show options
         OutlinedTextField(
             value = category,
             onValueChange = { },
@@ -123,12 +117,6 @@ fun AddBookingScreen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Show error message if date is already booked
-        if (errorMessage.isNotEmpty()) {
-            Text(text = errorMessage, color = Color.Red)
-        }
-
-
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
@@ -136,27 +124,19 @@ fun AddBookingScreen(navController: NavHostController) {
                 if (name.isNotEmpty() && contact.isNotEmpty() && category.isNotEmpty() &&
                     location.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
 
-                    // Start loading state
                     isLoading = true
 
-                    // Call the createBooking method which handles date availability internally
                     bookingViewModel.createBooking(name, contact, category, location, date, time) { success ->
-                        if (success) {
-                            Toast.makeText(context, "Booking submitted!", Toast.LENGTH_SHORT).show()
-                        } else {
-                            errorMessage = "This date is already booked for a wedding or corporate session"
-                        }
+                        Toast.makeText(context, if (success) "Booking submitted!" else "Booking failed.", Toast.LENGTH_SHORT).show()
                     }
 
-                    // Reset fields after submission
                     name = ""
                     contact = ""
                     category = ""
                     location = ""
                     date = ""
                     time = ""
-                    errorMessage = ""  // Reset error message
-                    isLoading = false  // Hide loading spinner
+                    isLoading = false
                 } else {
                     Toast.makeText(context, "All fields are required", Toast.LENGTH_SHORT).show()
                 }
@@ -176,11 +156,31 @@ fun AddBookingScreen(navController: NavHostController) {
         ) {
             Text(text = "View My Bookings")
         }
-   
 
+        val authViewModel = remember { AuthViewModel(navController, context) }
+
+        Button(
+            onClick = { authViewModel.logout() },
+            modifier = Modifier
+                .padding(start = 8.dp, top = 16.dp)
+                .width(130.dp)
+                .height(40.dp),
+            shape = RoundedCornerShape(8.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF2E2E2E),
+                contentColor = Color.White
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Default.Logout,
+                contentDescription = "Logout",
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(6.dp))
+            Text("Logout")
+        }
     }
 
-    // Dialog to choose category
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },

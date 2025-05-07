@@ -6,7 +6,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation.NavHostController
 import com.example.arthur.hadithifilmsandphotography.models.Booking
-import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_LOGIN
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -17,16 +16,20 @@ class BookingViewModel(
     private val authViewModel = AuthViewModel(navController, context)
     private val databaseReference = FirebaseDatabase.getInstance().getReference("Bookings")
 
-    init {
-        if (!authViewModel.isLoggedIn()) {
-            navController.navigate(ROUT_LOGIN)
-        }
+    // Use this from Composables to check if the user is authenticated
+    fun isLoggedIn(): Boolean {
+        return authViewModel.isLoggedIn()
     }
 
-    // Book a session (no collision checks)
+    // Book a session
     fun createBooking(
-        name: String, contact: String, category: String, location: String,
-        date: String, time: String, onLoading: (Boolean) -> Unit
+        name: String,
+        contact: String,
+        category: String,
+        location: String,
+        date: String,
+        time: String,
+        onLoading: (Boolean) -> Unit
     ) {
         val bookingId = System.currentTimeMillis().toString()
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -59,10 +62,10 @@ class BookingViewModel(
     // Delete a booking
     fun deleteBooking(bookingId: String) {
         databaseReference.child(bookingId).removeValue()
-        Toast.makeText(context, "Booking forfeited successfully", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Booking deleted successfully", Toast.LENGTH_SHORT).show()
     }
 
-    // Fetch all bookings for the logged-in user only
+    // Fetch bookings of the logged-in user
     fun allBookings(
         selectedBooking: MutableState<Booking>,
         bookingList: SnapshotStateList<Booking>
@@ -90,6 +93,27 @@ class BookingViewModel(
             }
         })
         return bookingList
+    }
+
+    // Fetch all bookings (Admin only)
+    fun fetchAllBookings(
+        bookingList: SnapshotStateList<Booking>
+    ) {
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                bookingList.clear()
+                for (snap in snapshot.children) {
+                    val retrievedBooking = snap.getValue(Booking::class.java)
+                    if (retrievedBooking != null) {
+                        bookingList.add(retrievedBooking)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Failed to fetch bookings", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     // Get booking by ID

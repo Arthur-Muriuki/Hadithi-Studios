@@ -89,7 +89,7 @@ fun DashboardScreen(navController: NavController) {
 
         //Admin Panel Button
         ElevatedButton(
-            onClick = { navController.navigate("admin") }, // New route for admin
+            onClick = { navController.navigate("codeverification") }, // New route for admin
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1976D2)) // Admin color
         ) {

@@ -1,10 +1,10 @@
+// RegisterScreen.kt
 package com.example.arthur.hadithifilmsandphotography.ui.theme.screens.register
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -21,62 +21,49 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.arthur.hadithifilmsandphotography.R
 import com.example.arthur.hadithifilmsandphotography.data.AuthViewModel
 import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_LOGIN
 
-
 @Composable
 fun RegisterScreen(navController: NavHostController) {
+    val context = LocalContext.current
+    val authViewModel = remember { AuthViewModel(navController, context) }
+
+    var name by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var confPassword by remember { mutableStateOf("") }
+
+    var passwordVisible by remember { mutableStateOf(false) }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.img),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .graphicsLayer(alpha = 0.1f)
+            modifier = Modifier.fillMaxSize().graphicsLayer(alpha = 0.1f)
         )
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .imePadding(),
-
+            modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp).imePadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Create An Account!",
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Cursive
-            )
-
+            Text("Create An Account!", fontSize = 34.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Cursive)
             Spacer(modifier = Modifier.height(30.dp))
-
-            var name by remember { mutableStateOf("") }
-            var email by remember { mutableStateOf("") }
-            var password by remember { mutableStateOf("") }
-            var confpassword by remember { mutableStateOf("") }
-            var passwordVisible by remember { mutableStateOf(false) }
-            var confirmPasswordVisible by remember { mutableStateOf(false) }
 
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Full Name", fontFamily = FontFamily.SansSerif) },
-                keyboardOptions = KeyboardOptions.Default,
+                label = { Text("Full Name") },
                 leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                shape = RoundedCornerShape(5.dp)
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.small
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -84,13 +71,11 @@ fun RegisterScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email Address", fontFamily = FontFamily.SansSerif) },
+                label = { Text("Email Address") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                shape = RoundedCornerShape(5.dp)
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.small
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -98,94 +83,70 @@ fun RegisterScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Password", fontFamily = FontFamily.SansSerif) },
+                label = { Text("Password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                 trailingIcon = {
-                    val icon = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff
                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                        Icon(icon, contentDescription = "Toggle Password Visibility")
+                        Icon(if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff, contentDescription = null)
                     }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                shape = RoundedCornerShape(5.dp)
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.small
             )
 
             Text(
                 text = "Password must be at least 6 characters.",
                 color = if (password.length in 1..5) Color.Red else Color.Gray,
                 fontSize = 12.sp,
-                fontFamily = FontFamily.SansSerif,
-                modifier = Modifier
-                    .align(Alignment.Start)
-                    .padding(start = 24.dp, top = 4.dp)
+                modifier = Modifier.align(Alignment.Start).padding(top = 4.dp)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
             OutlinedTextField(
-                value = confpassword,
-                onValueChange = { confpassword = it },
-                label = { Text("Confirm Password", fontFamily = FontFamily.SansSerif) },
+                value = confPassword,
+                onValueChange = { confPassword = it },
+                label = { Text("Confirm Password") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                 trailingIcon = {
-                    val icon = if (confirmPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff
                     IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
-                        Icon(icon, contentDescription = "Toggle Confirm Password Visibility")
+                        Icon(if (confirmPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff, contentDescription = null)
                     }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                shape = RoundedCornerShape(5.dp)
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.small
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
-
-            val context = LocalContext.current
-            val authViewModel = AuthViewModel(navController, context)
-
-            // Dynamically change button color based on password length
-            val buttonColor = if (password.length >= 6) Color.Blue else Color.Gray
+            Spacer(modifier = Modifier.height(20.dp))
 
             Button(
                 onClick = {
-                    if (password.length < 6) {
-                        Toast.makeText(context, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
-                    } else if (password != confpassword) {
+                    if (password != confPassword) {
                         Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
                     } else {
-                        authViewModel.signup(name, email, password, confpassword)
-                        Toast.makeText(context, "Registration Successful", Toast.LENGTH_SHORT).show()
-                        navController.navigate(ROUT_LOGIN)
+                        authViewModel.signup(name, email, password, confPassword)
                     }
                 },
-                colors = ButtonDefaults.buttonColors(buttonColor),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                shape = RoundedCornerShape(5.dp)
+                colors = ButtonDefaults.buttonColors(containerColor = if (password.length >= 6) MaterialTheme.colorScheme.primary else Color.Gray),
+                enabled = password.length >= 6,
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.small
             ) {
                 Text("Register")
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "Already have an account? Login",
                 color = Color.Blue,
                 fontSize = 16.sp,
-                fontFamily = FontFamily.SansSerif,
                 textDecoration = TextDecoration.Underline,
-                modifier = Modifier
-                    .padding(top = 16.dp)
-                    .clickable { navController.navigate(ROUT_LOGIN) }
-                    .align(Alignment.CenterHorizontally)
+                modifier = Modifier.clickable { navController.navigate(ROUT_LOGIN) }
             )
         }
     }
