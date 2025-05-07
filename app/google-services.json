@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "884174653894",
+    "project_id": "hadithifilmsandphotography",
+    "storage_bucket": "hadithifilmsandphotography.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884174653894:android:908af629c6d8683ce80ac7",
+        "android_client_info": {
+          "package_name": "com.example.arthur.hadithifilmsandphotography"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJLnwLPQCtDVtSbwe_a-YS1c6b4Z9BKo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
