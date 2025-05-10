@@ -91,7 +91,7 @@ Select a device or emulator
 Click Run ▶️ on the main activity
 ```
 ## COPYRIGNT
-Copyright (c) 2025 Hadithi1studi0s
+Copyright (c) 2025 arthur muriuki
 
 All rights reserved.
 
