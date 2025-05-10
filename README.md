@@ -1,12 +1,18 @@
-Hadith1Studi0s<br>
-
 # 📱 Hadithi1studi0s App
 
-Welcome to the official Hadithi1studi0s mobile app repository!
+![License: Proprietary](https://img.shields.io/badge/license-proprietary-red)
+![Built with Kotlin](https://img.shields.io/badge/Kotlin-1.9-blueviolet)
+![Gradle](https://img.shields.io/badge/Build-Gradle-02303A.svg)
+
+Welcome to the official **Hadithi1studi0s** mobile app repository!
+
+This project contains the source code for the Hadithi1studi0s Android application, developed with Kotlin and Gradle, and designed for private use within the company.
+
+---
 
 ## 🔗 Download the App
 
-You can download and install the latest version of the Hadithi1studi0s app directly on your Android device.
+Install the latest version of the Hadithi1studi0s app directly to your Android device:
 
 👉 **[Click here to download the APK](https://arthur-muriuki.github.io/hadith1studi0s/)**
 
@@ -14,83 +20,82 @@ You can download and install the latest version of the Hadithi1studi0s app direc
 
 ## 📲 How to Install the APK
 
-1. **Download the APK** from the link above.
-2. If prompted, allow downloads from your browser (e.g. Chrome).
-3. Once downloaded, tap the file in your Downloads folder.
+1. Download the APK from the link above.
+2. If prompted, allow downloads from your browser (e.g., Chrome).
+3. Open your **Downloads** folder and tap the file.
 4. If you see a security warning:
    - Tap **Settings**
-   - Enable **“Install unknown apps”** for your browser
+   - Enable **Install unknown apps** for your browser
 5. Tap **Install**
-6. Done! 🎉 You can now open and use the app.
+6. Done! 🎉 You can now use the app.
 
 ---
 
-## 🚨 Important Notes
+## ⚠️ Important Notes
 
-- The app is currently in **development mode** – features may change.
+- This app is in **active development** — features may change.
+- It is intended for **authorized internal use only**.
 - Only install APKs from trusted sources.
-- If you run into issues, feel free to open an [issue](https://github.com/Arthur-Muriuki/hadith1studi0s/issues).
 
 ---
 
-Thank you for supporting Hadithi1studi0s!
-<br>
-This repository contains the source code for the Hadith1Studi0s project. The project is built using Kotlin and utilizes Gradle for build automation.
+## 🗂️ Project Structure
 
-Project Structure
-app/: Contains the main application source code.
+hadith1studi0s/
+│
+├── app/ # Main application code (Kotlin, Compose)
+├── gradle/ # Gradle wrapper scripts
+├── .idea/ # IDE configuration (IntelliJ/Android Studio)
+├── build.gradle.kts # Kotlin DSL build script
+├── settings.gradle.kts # Gradle build settings
+├── gradlew / gradlew.bat # Gradle wrapper scripts
+├── gradle.properties # Gradle config properties
+├── .gitignore # Git ignored files
+└── appicon.png.png # App icon
 
-gradle/: Contains Gradle wrapper files.
 
-.idea/: Contains project configuration files for the IDE (e.g., IntelliJ IDEA).
+---
 
-build.gradle.kts: Kotlin-based Gradle build script.
+## 🛠️ Technologies Used
 
-settings.gradle.kts: Settings for the Gradle build.
+- **Kotlin** – Programming language
+- **Jetpack Compose** – Declarative UI framework
+- **MVVM Architecture** – Clean code structure
+- **Gradle** – Build automation tool
 
-gradlew and gradlew.bat: Gradle wrapper scripts for Unix and Windows.
+---
 
-gradle.properties: Configuration properties for the Gradle build.
+## 🧪 Getting Started
 
-.gitignore: Specifies files and directories to be ignored by Git.
+### 📥 Clone the Repository
 
-appicon.png.png: Application icon image file.
-
-Technologies Used
-Kotlin: Programming language used for the application.
-
-Gradle: Build automation tool.
-
-Getting Started
-To build and run this project locally:
-
-Clone the repository:
-
-bash
-Copy
-Edit
+```bash
 git clone https://github.com/Arthur-Muriuki/hadith1studi0s.git
 cd hadith1studi0s
-Build the project using Gradle:
-
-On Unix-based systems:
-
+On macOS/Linux:
 bash
 Copy
 Edit
 ./gradlew build
 On Windows:
-
 bash
 Copy
 Edit
 gradlew.bat build
-Run the application:
+<br>
+▶️ Run the App
+Open the project in Android Studio
 
-The method to run the application will depend on the project's configuration. If it's a console application, you can use:
+Select a device or emulator
 
-bash
-Copy
-Edit
-./gradlew run
-Alternatively, open the project in an IDE like IntelliJ IDEA and run the application from there.
+Click Run ▶️ on the main activity
+
+Copyright (c) 2025 Hadithi1studi0s
+
+All rights reserved.
+
+This software and its source code are the property of Hadithi1studi0s and are intended solely for internal use by authorized personnel or clients of the company. Unauthorized copying, distribution, modification, or use of this software, in whole or in part, is strictly prohibited.
+
+No part of this software may be reproduced, stored in a retrieval system, or transmitted in any form or by any means without prior written permission from Hadithi1studi0s.
+
+For inquiries, contact: arthur@hadithi1studi0s.com
