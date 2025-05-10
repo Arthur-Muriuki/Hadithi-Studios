@@ -12,23 +12,35 @@ This project contains the source code for the Hadithi1studi0s Android applicatio
 
 ## 🔗 Download the App
 
-Install the latest version of the Hadithi1studi0s app directly to your Android device:
+📲 How to Install the APK Using Opera Mini
+Open the link below in Opera Mini:
+<br>👉 Click here to download the APK
 
-👉 **[Click here to download the APK](https://arthur-muriuki.github.io/hadith1studi0s/)**
+On the download screen, tap “Download”.
 
----
+You may see “Pending...” – if this happens:
 
-## 📲 How to Install the APK
+Tap the three dots (menu) in Opera Mini.
 
-1. Download the APK from the link above.
-2. If prompted, allow downloads from your browser (e.g., Chrome).
-3. Open your **Downloads** folder and tap the file.
-4. If you see a security warning:
-   - Tap **Settings**
-   - Enable **Install unknown apps** for your browser
-5. Tap **Install**
-6. Done! 🎉 You can now use the app.
+Choose “Download with system” to let Android handle the download.
 
+The APK should now begin downloading normally in the background.
+
+Once the download is complete:
+
+Go to your Downloads folder or the notification bar.
+
+Tap the APK file.
+
+If you get a warning like “Install blocked”:
+
+Tap Settings
+
+Enable “Install unknown apps” for Opera Mini.
+
+Tap Install.
+
+✅ Done! The Hadithi1studi0s app is now ready to use.
 ---
 
 ## ⚠️ Important Notes
