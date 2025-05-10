@@ -82,7 +82,7 @@ bash
 Copy
 Edit
 gradlew.bat build
-<br>
+
 ▶️ Run the App
 Open the project in Android Studio
 
