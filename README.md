@@ -89,7 +89,8 @@ Open the project in Android Studio
 Select a device or emulator
 
 Click Run ▶️ on the main activity
-
+```
+## COPYRIGNT
 Copyright (c) 2025 Hadithi1studi0s
 
 All rights reserved.
@@ -98,4 +99,4 @@ This software and its source code are the property of Hadithi1studi0s and are in
 
 No part of this software may be reproduced, stored in a retrieval system, or transmitted in any form or by any means without prior written permission from Hadithi1studi0s.
 
-For inquiries, contact: arthur@hadithi1studi0s.com
+For inquiries, contact: arthurmuriuki06@gmail.com
