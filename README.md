@@ -9,38 +9,34 @@ Welcome to the official **Hadithi1studi0s** mobile app repository!
 This project contains the source code for the Hadithi1studi0s Android application, developed with Kotlin and Gradle, and designed for private use within the company.
 
 ---
+🔗 Download the App
+You can download and install the latest version of the Hadithi1studi0s app directly to your Android device.
 
-## 🔗 Download the App
+👉 Click here to download the APK
 
-📲 How to Install the APK Using Opera Mini
-Open the link below in Opera Mini:
-<br>👉 Click here to download the APK
+📲 How to Install the APK (Opera Mini Users)
+If you're using Opera Mini, follow these steps carefully:
 
-On the download screen, tap “Download”.
+Open the link above in Opera Mini:
+👉 https://arthur-muriuki.github.io/hadith1studi0s/
 
-You may see “Pending...” – if this happens:
+Tap Download. If it says “Pending…”, do the following:
 
-Tap the three dots (menu) in Opera Mini.
+Tap the three-dot menu in the top-right corner.
 
-Choose “Download with system” to let Android handle the download.
+Choose “Download with system” to start the download using Android’s native downloader.
 
-The APK should now begin downloading normally in the background.
+Once downloaded, open your Downloads folder or tap the download notification.
 
-Once the download is complete:
-
-Go to your Downloads folder or the notification bar.
-
-Tap the APK file.
-
-If you get a warning like “Install blocked”:
+If you see a warning like “Install blocked”, follow these steps:
 
 Tap Settings
 
-Enable “Install unknown apps” for Opera Mini.
+Enable “Install unknown apps” for Opera Mini
 
-Tap Install.
+Tap Install and wait for the process to complete.
 
-✅ Done! The Hadithi1studi0s app is now ready to use.
+🎉 Done! You can now launch and enjoy the Hadithi1studi0s app.
 ---
 
 ## ⚠️ Important Notes
