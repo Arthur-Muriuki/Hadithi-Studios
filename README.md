@@ -1,6 +1,40 @@
-Hadith1Studi0s
+Hadith1Studi0s<br>
 
+# 📱 Hadithi1studi0s App
 
+Welcome to the official Hadithi1studi0s mobile app repository!
+
+## 🔗 Download the App
+
+You can download and install the latest version of the Hadithi1studi0s app directly on your Android device.
+
+👉 **[Click here to download the APK](https://arthur-muriuki.github.io/hadith1studi0s/)**
+
+---
+
+## 📲 How to Install the APK
+
+1. **Download the APK** from the link above.
+2. If prompted, allow downloads from your browser (e.g. Chrome).
+3. Once downloaded, tap the file in your Downloads folder.
+4. If you see a security warning:
+   - Tap **Settings**
+   - Enable **“Install unknown apps”** for your browser
+5. Tap **Install**
+6. Done! 🎉 You can now open and use the app.
+
+---
+
+## 🚨 Important Notes
+
+- The app is currently in **development mode** – features may change.
+- Only install APKs from trusted sources.
+- If you run into issues, feel free to open an [issue](https://github.com/Arthur-Muriuki/hadith1studi0s/issues).
+
+---
+
+Thank you for supporting Hadithi1studi0s!
+<br>
 This repository contains the source code for the Hadith1Studi0s project. The project is built using Kotlin and utilizes Gradle for build automation.
 
 Project Structure
