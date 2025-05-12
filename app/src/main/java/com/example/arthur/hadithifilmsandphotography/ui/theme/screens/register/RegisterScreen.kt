@@ -1,4 +1,3 @@
-// RegisterScreen.kt
 package com.example.arthur.hadithifilmsandphotography.ui.theme.screens.register
 
 import android.widget.Toast

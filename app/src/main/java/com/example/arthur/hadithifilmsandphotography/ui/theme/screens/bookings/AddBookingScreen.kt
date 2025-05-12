@@ -39,7 +39,7 @@ fun AddBookingScreen(navController: NavHostController) {
     var isLoading by remember { mutableStateOf(false) }
 
     val categoryOptions = listOf(
-        "💍 Wedding", "🏢 Corporate", "🤰 Baby Bump", "📸 Personal Shoot", "🎂 Birthday Shoot", "🎓 Graduation", "🛂 Passport"
+        "💍 Wedding (ksh. 200k)", "🏢 Corporate (ksh. 150k)", "🤰 Baby Bump (ksh. 15000)", "📸 Personal Shoot (ksh. 10000)", "🎂 Birthday Shoot (ksh.10000) ", "🎓 Graduation shoot (ksh.10000)", "🛂 Passport photos (ksh.5000)"
     )
 
     var showDialog by remember { mutableStateOf(false) }

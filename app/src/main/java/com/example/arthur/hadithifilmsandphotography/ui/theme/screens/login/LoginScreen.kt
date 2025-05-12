@@ -1,4 +1,3 @@
-// LoginScreen.kt
 package com.example.arthur.hadithifilmsandphotography.ui.theme.screens.login
 
 import android.annotation.SuppressLint
