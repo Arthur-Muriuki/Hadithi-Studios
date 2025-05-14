@@ -1,4 +1,4 @@
-# 📱 Hadithi1studi0s App
+# 📱 Hadithistudios App
 
 ![License: Proprietary](https://img.shields.io/badge/license-proprietary-red)
 ![Built with Kotlin](https://img.shields.io/badge/Kotlin-1.9-blueviolet)
