@@ -27,16 +27,13 @@ import com.google.firebase.auth.FirebaseAuth
 fun BookingListScreen(navController: NavHostController) {
     val context = LocalContext.current
 
-    // Remember the BookingViewModel and pass the required parameters
     val bookingViewModel = remember { BookingViewModel(navController, context) }
-
     val selectedBooking = remember { mutableStateOf(Booking("", "", "", "", "", "", "")) }
     val bookingList = remember { mutableStateListOf<Booking>() }
 
     val currentUser = FirebaseAuth.getInstance().currentUser
     val currentUserId = currentUser?.uid
 
-    // Fetch the bookings when the screen is composed
     LaunchedEffect(Unit) {
         bookingViewModel.allBookings(selectedBooking, bookingList)
     }
@@ -71,16 +68,13 @@ fun BookingListScreen(navController: NavHostController) {
         // List of bookings
         LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             items(bookingList) { booking ->
-                // Only show bookings for the current user
                 if (booking.userId == currentUserId) {
                     BookingItem(
                         booking = booking,
                         onUpdate = {
-                            // Navigate to Edit Booking screen
                             navController.navigate("edit_booking_screen/${booking.id}")
                         },
                         onDelete = {
-                            // Delete the booking
                             bookingViewModel.deleteBooking(booking.id)
                             Toast.makeText(context, "Booking deleted", Toast.LENGTH_SHORT).show()
                         }

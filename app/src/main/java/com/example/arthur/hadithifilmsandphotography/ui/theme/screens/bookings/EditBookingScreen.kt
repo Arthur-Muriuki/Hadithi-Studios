@@ -32,7 +32,6 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf("") }
 
-    // Load booking data once
     LaunchedEffect(bookingId) {
         bookingViewModel.getBookingById(bookingId) { booking ->
             if (booking != null) {

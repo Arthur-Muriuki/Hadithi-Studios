@@ -31,7 +31,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SplashScreen(navController: NavHostController) {
-    // Scale + fade-in animation for overall content
     val scale = remember { Animatable(0f) }
     val alpha = remember { Animatable(0f) }
 
@@ -49,10 +48,7 @@ fun SplashScreen(navController: NavHostController) {
             )
         }
 
-        delay(2000) // Let the animation play out for 2 seconds
-        // After the delay, you can add any other logic you want
-        // For example, you could manually update a variable to show the next screen
-        // Navigate to login and remove splash from back stack
+        delay(2000) // animation play out for 2 seconds
         navController.navigate("userdashboard") {
             popUpTo("splash") { inclusive = true }}
     }

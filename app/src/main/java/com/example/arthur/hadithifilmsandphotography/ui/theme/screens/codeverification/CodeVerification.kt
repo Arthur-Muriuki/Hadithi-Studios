@@ -19,7 +19,7 @@ fun CodeVerification(navController: NavController) {
     var errorMessage by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
 
-    val correctCode = "hadithi@2025" // Hardcoded admin code
+    val correctCode = "hadithi@2025"
 
     Column(
         modifier = Modifier
