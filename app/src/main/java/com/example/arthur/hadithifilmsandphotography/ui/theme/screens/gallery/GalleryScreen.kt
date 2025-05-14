@@ -33,10 +33,11 @@ fun GalleryScreen(navController: NavHostController) {
     val imageList = listOf(
         Pair(painterResource(id = R.drawable.wedding), "Wedding Moments"),
         Pair(painterResource(id = R.drawable.corporate), "Corporate"),
+        Pair(painterResource(id = R.drawable.graduation), "Graduation"),
         Pair(painterResource(id = R.drawable.babybump), "Baby Bump"),
         Pair(painterResource(id = R.drawable.personalshoots), "Personal Shoot"),
         Pair(painterResource(id = R.drawable.birthday), "Birthday shoot"),
-        Pair(painterResource(id = R.drawable.graduation), "Graduation"),
+
     )
 
     Column(
