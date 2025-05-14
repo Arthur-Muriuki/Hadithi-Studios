@@ -4,7 +4,7 @@
 ![Built with Kotlin](https://img.shields.io/badge/Kotlin-1.9-blueviolet)
 ![Gradle](https://img.shields.io/badge/Build-Gradle-02303A.svg)
 
-Welcome to the official **Hadithi1studi0s** mobile app repository!<br>
+
 Photography is not only about pictures, it’s about capturing moments that tell a story.
 “whether it’s the joy of a wedding, the energy of a graduation ceremony or the beautiful smiles at the corporate award ceremonies” – every session becomes part of someone’s personal story.
 So this app isn’t just a booking system, it’s a story telling platform. A digital doorway where people come in with ideas and walk out with memories they’ll hold forever.
