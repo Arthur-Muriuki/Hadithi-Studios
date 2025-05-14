@@ -75,31 +75,6 @@ hadith1studi0s/
 
 ---
 
-## 🧪 Getting Started
-
-### 📥 Clone the Repository
-
-```bash
-git clone https://github.com/Arthur-Muriuki/hadith1studi0s.git
-cd hadith1studi0s
-On macOS/Linux:
-bash
-Copy
-Edit
-./gradlew build
-On Windows:
-bash
-Copy
-Edit
-gradlew.bat build
-
-▶️ Run the App
-Open the project in Android Studio
-
-Select a device or emulator
-
-Click Run ▶️ on the main activity
-```
 ## COPYRIGNT
 Copyright (c) 2025 arthur muriuki
 
