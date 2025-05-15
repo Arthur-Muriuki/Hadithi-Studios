@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
@@ -30,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun BottomNavBarUser(
     onDashboardClick: () -> Unit,
+    onAddBookingClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
     NavigationBar(
@@ -41,6 +43,12 @@ fun BottomNavBarUser(
             label = { Text("Dashboard") },
             selected = false,
             onClick = onDashboardClick
+        )
+        NavigationBarItem(
+            icon = { Icon(Icons.Filled.Add, contentDescription = "Add Booking") },
+            label = { Text("Add Booking") },
+            selected = false,
+            onClick = onAddBookingClick
         )
         NavigationBarItem(
             icon = { Icon(Icons.Filled.Logout, contentDescription = "Logout") },
@@ -68,12 +76,9 @@ fun BookingListScreen(navController: NavHostController) {
     Scaffold(
         bottomBar = {
             BottomNavBarUser(
-                onDashboardClick = {
-                    authViewModel.navigateToDashboard()
-                },
-                onLogoutClick = {
-                    authViewModel.logout()
-                }
+                onDashboardClick = { authViewModel.navigateToDashboard() },
+                onAddBookingClick = { navController.navigate(ROUT_ADD_BOOKING) },
+                onLogoutClick = { authViewModel.logout() }
             )
         }
     ) { padding ->
@@ -112,15 +117,6 @@ fun BookingListScreen(navController: NavHostController) {
                         )
                     }
                 }
-            }
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            Button(
-                onClick = { navController.navigate(ROUT_ADD_BOOKING) },
-                shape = RoundedCornerShape(12.dp)
-            ) {
-                Text(text = "Add New Booking")
             }
         }
     }

@@ -188,7 +188,7 @@ fun AddBookingScreen(navController: NavHostController) {
                                 ) { success ->
                                     Toast.makeText(
                                         context,
-                                        if (success) "✅ Booking submitted!" else "❌ Booking failed.",
+                                        if (success) "✅ Booking submitted!" else "Booking failed.",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     if (success) {

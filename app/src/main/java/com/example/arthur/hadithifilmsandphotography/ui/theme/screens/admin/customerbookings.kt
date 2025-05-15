@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,20 +20,34 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.arthur.hadithifilmsandphotography.data.BookingViewModel
 import com.example.arthur.hadithifilmsandphotography.models.Booking
+import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_DASHBOARD
+
+@Composable
+fun BottomNavBarAdmin(
+    onDashboardClick: () -> Unit
+) {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = 8.dp
+    ) {
+        NavigationBarItem(
+            icon = { Icon(Icons.Filled.Home, contentDescription = "Dashboard") },
+            label = { Text("Dashboard") },
+            selected = false,
+            onClick = onDashboardClick
+        )
+    }
+}
 
 @Composable
 fun CustomerBookings(navController: NavHostController, viewModel: BookingViewModel) {
     val allBookings = remember { mutableStateListOf<Booking>() }
     var isLoading by remember { mutableStateOf(true) }
 
-    // Search
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
-
-    // Dialog state
     var showDialog by remember { mutableStateOf(false) }
     var bookingToDelete by remember { mutableStateOf<Booking?>(null) }
 
-    // Fetch bookings on load
     LaunchedEffect(Unit) {
         viewModel.fetchAllBookings(allBookings)
         isLoading = false
@@ -45,6 +61,11 @@ fun CustomerBookings(navController: NavHostController, viewModel: BookingViewMod
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary)
             )
+        },
+        bottomBar = {
+            BottomNavBarAdmin(
+                onDashboardClick = { navController.navigate(ROUT_DASHBOARD) }
+            )
         }
     ) { paddingValues ->
         Box(
@@ -55,7 +76,6 @@ fun CustomerBookings(navController: NavHostController, viewModel: BookingViewMod
         ) {
             Column(modifier = Modifier.fillMaxSize().padding(12.dp)) {
 
-                // Search Field
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
@@ -123,7 +143,6 @@ fun CustomerBookings(navController: NavHostController, viewModel: BookingViewMod
                 }
             }
 
-            // Confirmation Dialog
             if (showDialog && bookingToDelete != null) {
                 AlertDialog(
                     onDismissRequest = { showDialog = false },
