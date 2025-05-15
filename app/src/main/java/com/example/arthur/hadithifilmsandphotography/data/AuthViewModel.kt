@@ -1,4 +1,3 @@
-// AuthViewModel.kt
 package com.example.arthur.hadithifilmsandphotography.data
 
 import android.content.Context
@@ -86,7 +85,7 @@ class AuthViewModel(private val navController: NavController, private val contex
 
     fun logout() {
         mAuth.signOut()
-        navController.navigate(ROUT_DASHBOARD) {
+        navController.navigate(ROUT_LOGIN) {
             popUpTo(0) { inclusive = true }
             launchSingleTop = true
         }
@@ -95,4 +94,8 @@ class AuthViewModel(private val navController: NavController, private val contex
     fun isLoggedIn(): Boolean = mAuth.currentUser != null
 
     fun getUserId(): String? = mAuth.currentUser?.uid
+
+    fun navigateToDashboard() {
+        navController.navigate(ROUT_DASHBOARD)
+    }
 }
