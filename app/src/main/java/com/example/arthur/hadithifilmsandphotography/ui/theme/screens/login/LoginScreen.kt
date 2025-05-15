@@ -63,7 +63,7 @@ fun LoginScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Welcome Back",
+                text = "Login",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
