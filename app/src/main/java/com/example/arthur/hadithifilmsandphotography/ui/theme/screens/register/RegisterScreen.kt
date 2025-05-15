@@ -49,7 +49,7 @@ fun RegisterScreen(navController: NavHostController) {
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
-                .graphicsLayer(alpha = 0.3f)
+                .graphicsLayer(alpha = 0.2f)
                 .blur(10.dp)
         )
 
