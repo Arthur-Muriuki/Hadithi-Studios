@@ -26,13 +26,11 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun BookingListScreen(navController: NavHostController) {
     val context = LocalContext.current
-
     val bookingViewModel = remember { BookingViewModel(navController, context) }
     val selectedBooking = remember { mutableStateOf(Booking("", "", "", "", "", "", "")) }
     val bookingList = remember { mutableStateListOf<Booking>() }
 
-    val currentUser = FirebaseAuth.getInstance().currentUser
-    val currentUserId = currentUser?.uid
+    val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
 
     LaunchedEffect(Unit) {
         bookingViewModel.allBookings(selectedBooking, bookingList)
@@ -41,32 +39,23 @@ fun BookingListScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF5F5F5))
-            .padding(30.dp),
+            .background(Color(0xFFF7F7F7))
+            .padding(20.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(40.dp))
-
-        // Button to navigate to Add Booking screen
-        TextButton(onClick = { navController.navigate(ROUT_ADD_BOOKING) }) {
-            Text(text = "Add Booking")
-        }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // Title of the screen
+        Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "Booking Listings",
+            text = "My Bookings",
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            fontSize = 20.sp
+            modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-        // List of bookings
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
             items(bookingList) { booking ->
                 if (booking.userId == currentUserId) {
                     BookingItem(
@@ -82,6 +71,15 @@ fun BookingListScreen(navController: NavHostController) {
                 }
             }
         }
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Button(
+            onClick = { navController.navigate(ROUT_ADD_BOOKING) },
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Text(text = "Add New Booking")
+        }
     }
 }
 
@@ -93,32 +91,41 @@ fun BookingItem(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = Color.LightGray),
-        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFDFDFD)),
+        shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Name: ${booking.name}", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-            Text(text = "Contact: ${booking.contact}", fontSize = 14.sp)
-            Text(text = "Category: ${booking.category}", fontSize = 14.sp)
-            Text(text = "Location: ${booking.location}", fontSize = 14.sp)
-            Text(text = "Date: ${booking.date}", fontSize = 14.sp)
-            Text(text = "Time: ${booking.time}", fontSize = 14.sp)
+            Text("📌 ${booking.category}", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Spacer(modifier = Modifier.height(4.dp))
+            Text("👤 Name: ${booking.name}", fontSize = 14.sp)
+            Text("📞 Contact: ${booking.contact}", fontSize = 14.sp)
+            Text("📍 Location: ${booking.location}", fontSize = 14.sp)
+            Text("📅 Date: ${booking.date}", fontSize = 14.sp)
+            Text("⏰ Time: ${booking.time}", fontSize = 14.sp)
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                OutlinedButton(onClick = onUpdate) {
-                    Icon(Icons.Default.Edit, contentDescription = "Update")
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text("Update")
+                OutlinedButton(
+                    onClick = onUpdate,
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Icon(Icons.Default.Edit, contentDescription = "Edit", modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text("Edit")
                 }
-                Button(onClick = onDelete, colors = ButtonDefaults.buttonColors(Color.DarkGray)) {
-                    Icon(Icons.Default.Delete, contentDescription = "Delete")
-                    Spacer(modifier = Modifier.width(4.dp))
+
+                Button(
+                    onClick = onDelete,
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB00020))
+                ) {
+                    Icon(Icons.Default.Delete, contentDescription = "Delete", modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     Text("Delete", color = Color.White)
                 }
             }
