@@ -3,6 +3,8 @@ package com.example.arthur.hadithifilmsandphotography.ui.theme.screens.bookings
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,7 +22,6 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
     val context = LocalContext.current
     val bookingViewModel = remember { BookingViewModel(navController, context) }
 
-    // State variables to hold form values
     var name by remember { mutableStateOf("") }
     var contact by remember { mutableStateOf("") }
     var category by remember { mutableStateOf("") }
@@ -28,6 +29,17 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
     var date by remember { mutableStateOf("") }
     var time by remember { mutableStateOf("") }
 
+    val categoryOptions = listOf(
+        "💍 Wedding (ksh. 200k)",
+        "🏢 Corporate (ksh. 150k)",
+        "🤰 Baby Bump (ksh. 15000)",
+        "📸 Personal Shoot (ksh. 10000)",
+        "🎂 Birthday Shoot (ksh.10000)",
+        "🎓 Graduation shoot (ksh.10000)",
+        "🛂 Passport photos (ksh.5000)"
+    )
+
+    var showDialog by remember { mutableStateOf(false) }
     var isDataLoaded by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf("") }
@@ -62,7 +74,6 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Show error message if loading fails
         if (errorMessage.isNotEmpty()) {
             Text(text = errorMessage, color = MaterialTheme.colorScheme.error)
             Spacer(modifier = Modifier.height(8.dp))
@@ -71,7 +82,6 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
         if (isLoading) {
             CircularProgressIndicator(modifier = Modifier.padding(16.dp))
         } else {
-            // Editable fields
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
@@ -92,8 +102,14 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
 
             OutlinedTextField(
                 value = category,
-                onValueChange = { category = it },
+                onValueChange = { },
                 label = { Text("Category") },
+                readOnly = true,
+                trailingIcon = {
+                    IconButton(onClick = { showDialog = true }) {
+                        Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = "Select Category")
+                    }
+                },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -108,7 +124,6 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // New date field
             OutlinedTextField(
                 value = date,
                 onValueChange = { date = it },
@@ -118,7 +133,6 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // New time field
             OutlinedTextField(
                 value = time,
                 onValueChange = { time = it },
@@ -128,7 +142,6 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Update Button
             Button(
                 onClick = {
                     if (name.isNotEmpty() && contact.isNotEmpty() && category.isNotEmpty() && location.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
@@ -147,5 +160,29 @@ fun EditBookingScreen(navController: NavHostController, bookingId: String) {
                 Text("Update Booking")
             }
         }
+    }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text("Select Category") },
+            text = {
+                Column {
+                    categoryOptions.forEach { option ->
+                        TextButton(onClick = {
+                            category = option
+                            showDialog = false
+                        }) {
+                            Text(option)
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                Button(onClick = { showDialog = false }) {
+                    Text("Close")
+                }
+            }
+        )
     }
 }

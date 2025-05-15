@@ -60,6 +60,14 @@ fun DashboardScreen(navController: NavController) {
             color = Color.Gray,
             modifier = Modifier.padding(top = 4.dp, bottom = 32.dp)
         )
+        Text(
+            text = "(for enquiries, please reach out to 0743596344)",
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+
+        )
+
 
         // Login Button
         ElevatedButton(
