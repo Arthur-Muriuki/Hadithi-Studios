@@ -47,8 +47,7 @@ fun SplashScreen(navController: NavHostController) {
                 animationSpec = tween(durationMillis = 1000)
             )
         }
-
-        delay(2000) // animation play out for 2 seconds
+        delay(2000)
         navController.navigate("userdashboard") {
             popUpTo("splash") { inclusive = true }}
     }

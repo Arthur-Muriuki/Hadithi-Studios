@@ -35,7 +35,6 @@ fun DashboardScreen(navController: NavController) {
             modifier = Modifier.fillMaxSize()
         )
 
-        // Optional gradient overlay for better contrast
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -49,7 +48,6 @@ fun DashboardScreen(navController: NavController) {
                 )
         )
 
-        // Centered Content
         Box(
             modifier = Modifier
                 .fillMaxSize()
