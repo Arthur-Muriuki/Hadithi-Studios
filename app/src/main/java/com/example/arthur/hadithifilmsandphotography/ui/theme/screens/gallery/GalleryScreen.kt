@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -21,8 +22,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.arthur.hadithifilmsandphotography.R
+import com.example.arthur.hadithifilmsandphotography.navigation.ROUT_DASHBOARD
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
+
+const val ROUT_DASHBOARD = "dashboard"
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -37,98 +41,116 @@ fun GalleryScreen(navController: NavHostController) {
         Pair(painterResource(id = R.drawable.personalshoots), "Personal Shoot"),
         Pair(painterResource(id = R.drawable.birthday), "Birthday shoot"),
         Pair(painterResource(id = R.drawable.babybump), "Baby Bump"),
-
     )
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            HorizontalPager(
-                count = imageList.size,
-                state = pagerState,
-                modifier = Modifier.fillMaxSize()
-            ) { page ->
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Image(
-                        painter = imageList[page].first,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = 8.dp)
+    Scaffold(
+        bottomBar = {
+            BottomAppBar {
+                NavigationBar {
+                    NavigationBarItem(
+                        icon = { Icon(Icons.Default.Dashboard, contentDescription = "Dashboard") },
+                        label = { Text("Dashboard") },
+                        selected = false,
+                        onClick = {
+                            navController.navigate(ROUT_DASHBOARD)
+                        }
                     )
-
-                    Box(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .fillMaxWidth()
-                            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.6f))
-                            .padding(12.dp)
-                    ) {
-                        Text(
-                            text = imageList[page].second,
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                    }
-                }
-            }
-
-            // Navigation buttons
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .align(Alignment.BottomCenter),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                IconButton(
-                    onClick = {
-                        coroutineScope.launch {
-                            val prevPage = (pagerState.currentPage - 1).coerceAtLeast(0)
-                            pagerState.animateScrollToPage(prevPage)
-                        }
-                    }
-                ) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Previous")
-                }
-
-                IconButton(
-                    onClick = {
-                        coroutineScope.launch {
-                            val nextPage = (pagerState.currentPage + 1).coerceAtMost(imageList.lastIndex)
-                            pagerState.animateScrollToPage(nextPage)
-                        }
-                    }
-                ) {
-                    Icon(Icons.Default.ArrowForward, contentDescription = "Next")
                 }
             }
         }
-Spacer(modifier = Modifier.height(20.dp))
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                HorizontalPager(
+                    count = imageList.size,
+                    state = pagerState,
+                    modifier = Modifier.fillMaxSize()
+                ) { page ->
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = imageList[page].first,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 8.dp)
+                        )
 
-        Text(
-            text = "Gallery",
-            textAlign = TextAlign.Center,
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Cursive,
-            modifier = Modifier.padding(top = 16.dp)
-        )
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.BottomCenter)
+                                .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.6f))
+                                .padding(12.dp)
+                        ) {
+                            Text(
+                                text = imageList[page].second,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
+                    }
+                }
 
-        HorizontalPagerIndicator(
-            pagerState = pagerState,
-            modifier = Modifier.padding(16.dp)
-        )
+                // Navigation buttons
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .align(Alignment.BottomCenter),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    IconButton(
+                        onClick = {
+                            coroutineScope.launch {
+                                val prevPage = (pagerState.currentPage - 1).coerceAtLeast(0)
+                                pagerState.animateScrollToPage(prevPage)
+                            }
+                        }
+                    ) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Previous")
+                    }
+
+                    IconButton(
+                        onClick = {
+                            coroutineScope.launch {
+                                val nextPage = (pagerState.currentPage + 1).coerceAtMost(imageList.lastIndex)
+                                pagerState.animateScrollToPage(nextPage)
+                            }
+                        }
+                    ) {
+                        Icon(Icons.Default.ArrowForward, contentDescription = "Next")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = "Gallery",
+                textAlign = TextAlign.Center,
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Cursive,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
+            HorizontalPagerIndicator(
+                pagerState = pagerState,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
     }
 }
 
