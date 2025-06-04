@@ -21,7 +21,7 @@ You can download and install the latest version of the Hadithi1studi0s app direc
 
 📲 How to Install the APK (Opera Mini Users)
 If you're using Opera Mini, follow these steps carefully:
-
+After pasting the link(https://arthur-muriuki.github.io/Hadithi-Studios/) on the search engine, click search and:
 1.Tap Download. If it says “Pending…”, do the following:
 
 2.Tap the three-dot menu in the top-right corner.
