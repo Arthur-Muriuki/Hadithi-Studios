@@ -17,7 +17,7 @@ This project contains the source code for the Hadithi1studi0s Android applicatio
  ## 🔗 Download the app
 You can download and install the latest version of the Hadithi1studi0s app directly to your Android device.
 
-👉 **[Download the app](https://arthur-muriuki.github.io/hadith1studi0s/)**
+👉 **[Download the app](https://arthur-muriuki.github.io/Hadithi-Studios/)**
 
 📲 How to Install the APK (Opera Mini Users)
 If you're using Opera Mini, follow these steps carefully:
